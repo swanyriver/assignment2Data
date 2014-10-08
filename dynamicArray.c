@@ -237,6 +237,7 @@ void swapDynArr(DynArr *v, int i, int  j)
     assert(j<v->size && j >=0);
     assert(v->size>0);
 
+    //USE A TEMPORARY HOLDING VARIABLE
     TYPE temp = v->data[j];
     v->data[j]=v->data[i];
     v->data[i]=temp;
@@ -259,10 +260,12 @@ void removeAtDynArr(DynArr *v, int idx)
     assert(idx<v->size && idx >=0);
     assert(v->size>0);
 
+    //MOVE ALL ELEMENTS IN INDEXES GREATER TO IDX TO PREVIOUS INDEX
     for(int i=idx;i<v->size-1;i++){
         v->data[i]=v->data[i+1];
     }
 
+    //REDUCE SIZE
     v->size--;
 }
 
@@ -282,9 +285,9 @@ void removeAtDynArr(DynArr *v, int idx)
 */
 int isEmptyDynArr(DynArr *v)
 {
-    assert(v!=NULL);
-	if(v->size<=0) return 1;
-	else return 0;
+   assert(v!=NULL);
+	if(v->size<=0) return 1; //EMPTY
+	else return 0;           //NOT EMPTY
 	
 }
 
@@ -300,7 +303,7 @@ int isEmptyDynArr(DynArr *v)
 void pushDynArr(DynArr *v, TYPE val)
 {
     assert(v!=NULL);
-	addDynArr(v,val);
+	 addDynArr(v,val);
 }
 
 /*	Returns the element at the top of the stack 
@@ -314,7 +317,7 @@ TYPE topDynArr(DynArr *v)
 {
     assert(v!=NULL);
     assert(v->size>0);
-	return v->data[v->size-1];
+    return v->data[v->size-1];  //ACCESS LAST ITEM IN UTILIZED ARRAY
 }
 
 /* Removes the element on top of the stack 
@@ -354,10 +357,11 @@ int containsDynArr(DynArr *v, TYPE val)
     assert(v!=NULL);
     assert(v->size>0);
 	
+    //SEARCH FOR ELEMENT
     for(int i=0;i<v->size;i++){
-        if(v->data[i]==val) return 1;
+        if(v->data[i]==val) return 1;  //ELEMENT FOUND
     }
-    return 0;
+    return 0; //ELEMENT NOT FOUND
 
 }
 
@@ -377,7 +381,8 @@ void removeDynArr(DynArr *v, TYPE val)
     assert(v!=NULL);
     assert(v->size>0);
 
+    //SEARCH FOR FIRST INDEX OF ELEMENT
     for(int i=0;i<v->size;i++){
-        if(v->data[i]==val) removeAtDynArr(v,i);
+        if(v->data[i]==val) removeAtDynArr(v,i);  //REMOVE ELEMENT, BY INDEX
     }
 }
