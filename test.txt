@@ -1,0 +1,56 @@
+
+
+Testing addDynArr...
+The array's content: [3,4,10,5,6]
+Test 1st element == 3: PASSED
+Test 2nd element == 4: PASSED
+Test 3rd element == 10: PASSED
+Test 4th element == 5: PASSED
+Test 5th element == 6: PASSED
+Test size = 5: PASSED
+
+
+Testing putDynArr...
+Calling putDynArr(dyn, 2, 7)
+The array's content: [3,4,7,5,6]
+Test 3rd element == 7: PASSED
+Test size = 5: PASSED
+
+
+Testing swapDynArr...
+Calling swapDynArr(dyn, 2, 4)
+The array's content: [3,4,6,5,7]
+Test 3rd element == 6: PASSED
+Test 5th element == 7: PASSED
+
+
+Testing removeAtDynArr...
+Calling removeAtDynArr(dyn, 1)
+The array's content: [3,6,5,7]
+Test 1st element == 3: PASSED
+Test 4th element == 7: PASSED
+Test size = 4: PASSED
+
+
+Testing stack interface...
+The stack's content: [3,6,5,7] <- top
+Testing isEmptyDynArr: PASSED
+Test topDynArr == 7: PASSED
+Poping...
+The stack's content: [3,6,5] <- top
+Test topDynArr == 5: PASSED
+Pushing 9...
+The stack's content: [3,6,5,9] <- top
+Test topDynArr == 9: PASSED
+
+
+Testing bag interface...
+The bag's content: [3,6,5,9]
+Test containing 3: PASSED
+Test containing 6: PASSED
+Test containing 5: PASSED
+Test containing 9: PASSED
+Test not containing 7: PASSED
+Removing 3...
+The stack's content: [6,5,9]
+Test not containing 3: PASSED
