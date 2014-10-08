@@ -91,8 +91,21 @@ void deleteDynArr(DynArr *v)
 */
 void _dynArrSetCapacity(DynArr *v, int newCap)
 {	
-	/* FIXME: You will write this function */
-	
+    //ALLOCATE NEW BLOCK OF MEMORY
+    TYPE *grow = (TYPE *) malloc(sizeof(TYPE) * newCap);
+
+    //MOVE VALUES TO NEW LARGER ARRAY
+    for(int i=0;i<v->size;i++){
+        grow[i]=v->data[i];
+    }
+
+    //GARBAGE COLLECTION
+    free(v->data);  /* free the space on the heap */
+    v->data = 0;    /* make it point to null */
+
+    //POINT TO NEW ARRAY
+    v->data=grow;
+
 }
 
 /* Get the size of the dynamic array
@@ -118,7 +131,13 @@ int sizeDynArr(DynArr *v)
 */
 void addDynArr(DynArr *v, TYPE val)
 {
-	/* FIXME: You will write this function */
+	//check capacity and resize if necessary
+    if(v->capacity==v->size){
+        _dynArrSetCapacity(v,v->capacity*2);
+    }
+
+    //put value in position size+1
+    v->data[v->size+1]=val;
 
 }
 
@@ -154,7 +173,17 @@ TYPE getDynArr(DynArr *v, int pos)
 */
 void putDynArr(DynArr *v, int pos, TYPE val)
 {
-	/* FIXME: You will write this function */
+	assert(v!=NULL);
+	assert(!isEmptyDynArr(v));
+	assert(pos >=0 && pos < sizeDynArr(v));
+
+	if(pos==sizeDynArr(v)+1){
+	    addDynArr(v,val);
+	}else{
+	    putDynArr(v,pos+1,v->data[pos]);
+	    v->data[pos]=val;
+	}
+
 }
 
 /*	Swap two specified elements in the dynamic array
@@ -287,5 +316,6 @@ int containsDynArr(DynArr *v, TYPE val)
 */
 void removeDynArr(DynArr *v, TYPE val)
 {
+
 	/* FIXME: You will write this function */
 }
