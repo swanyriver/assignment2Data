@@ -194,32 +194,6 @@ void putDynArr(DynArr *v, int pos, TYPE val)
 	v->data[pos]=val;
 
 }
-/*	Put an item into the dynamic array at the specified location,
-	shifting all other elements, calling add for last element
-	possibly expanding capacity
-
-	param: 	v		pointer to the dynamic array
-	param:	pos		the index to put the value into
-	param:	val		the value to insert
-	pre:	v is not null
-	pre:	v is not empty
-	pre:	pos >= 0 and pos < size of the array
-	post:	index pos contains new value, val
-
-void insertDynArr(DynArr *v, int pos, TYPE val)
-{
-	assert(v!=NULL);
-	assert(v->size>0);
-	assert(pos >=0 && pos <= sizeDynArr(v));
-
-	if(pos==sizeDynArr(v)){
-	    addDynArr(v,val);
-	}else{
-	    insertDynArr(v,pos+1,v->data[pos]);
-	    v->data[pos]=val;
-	}
-
-}*/
 
 /*	Swap two specified elements in the dynamic array
 
