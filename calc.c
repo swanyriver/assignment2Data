@@ -2,6 +2,11 @@
 #include <stdio.h>
 #include <string.h>
 #include "dynamicArray.h"
+#include <math.h>
+
+
+const double E = 2.7182818;
+const double PI = 3.14159265;
 
 
 /* param: s the string
@@ -23,7 +28,7 @@ int isNumber(char *s, double *num)
 	else 
 	{
 		returnNum = strtod(s, &end);
-		/* If there's anythin in end, it's bad */
+		/* If there's anything in end, it's bad */
 		if((returnNum != 0.0) && (strcmp(end, "") == 0))
 		{
 			*num = returnNum;
@@ -33,40 +38,29 @@ int isNumber(char *s, double *num)
 	return 0;  //if got here, it was not a number
 }
 
-/*	param: stack the stack being manipulated
-	pre: the stack contains at least two elements
-	post: the top two elements are popped and 
-	their sum is pushed back onto the stack.
-*/
-void add (struct DynArr *stack)
-{
-	/* FIXME: You will write this function */
-}
 
-/*	param: stack the stack being manipulated
-	pre: the stack contains at least two elements
-	post: the top two elements are popped and 
-	their difference is pushed back onto the stack.
-*/
-void subtract(struct DynArr *stack)
-{
-	/* FIXME: You will write this function */
+int isTwoOperands(char *s){
+    return(strcmp(s, "+") == 0 ||
+           strcmp(s, "-") == 0 ||
+           strcmp(s, "/") == 0 ||
+           strcmp(s, "x") == 0 ||
+           strcmp(s, "^") == 0);
 }
-
-/*	param: stack the stack being manipulated
-	pre: the stack contains at least two elements
-	post: the top two elements are popped and 
-	their quotient is pushed back onto the stack.
-*/
-void divide(struct DynArr *stack)
-{
-	/* FIXME: You will write this function */
+int isOneOperands(char *s){
+    return(strcmp(s, "^2") == 0 ||
+           strcmp(s, "^3") == 0 ||
+           strcmp(s, "abs") == 0 ||
+           strcmp(s, "sqrt") == 0 ||
+           strcmp(s, "exp") == 0 ||
+           strcmp(s, "ln") == 0 ||
+           strcmp(s, "log") == 0);
 }
 
 double calculate(int numInputTokens, char **inputString)
 {
 	int i;
 	double result = 0.0;
+	double lhs,rhs;
 	char *s;
 	struct DynArr *stack;
 
@@ -78,60 +72,92 @@ double calculate(int numInputTokens, char **inputString)
 	{
 		s = inputString[i];
 
-		// Hint: General algorithm:
-		// (1) Check if the string s is in the list of operators.
-		//   (1a) If it is, perform corresponding operations.
-		//   (1b) Otherwise, check if s is a number.
-		//     (1b - I) If s is not a number, produce an error.
-		//     (1b - II) If s is a number, push it onto the stack
+        if (isTwoOperands(s)) {
 
-		if(strcmp(s, "+") == 0)
-			add(stack);
-		else if(strcmp(s,"-") == 0)
-			subtract(stack);
-		else if(strcmp(s, "/") == 0)
-			divide(stack);
-		else if(strcmp(s, "x") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Multiplying\n");
-		else if(strcmp(s, "^") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Power\n");
-		else if(strcmp(s, "^2") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Squaring\n");
-		else if(strcmp(s, "^3") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Cubing\n");
-		else if(strcmp(s, "abs") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Absolute value\n");
-		else if(strcmp(s, "sqrt") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Square root\n");
-		else if(strcmp(s, "exp") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Exponential\n");
-		else if(strcmp(s, "ln") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Natural Log\n");
-		else if(strcmp(s, "log") == 0)
-			/* FIXME: replace printf with your own function */
-			printf("Log\n");
+            if(sizeDynArr(stack)<2){
+                printf("the stack has too few operands for the operation:%s",s);
+                return 0;
+            }
+
+            rhs = topDynArr(stack);
+            popDynArr(stack);
+            lhs = topDynArr(stack);
+            popDynArr(stack);
+
+            if(strcmp(s, "+") == 0)
+                pushDynArr(stack,lhs+rhs);
+            else if(strcmp(s,"-") == 0)
+                pushDynArr(stack,lhs-rhs);
+            else if(strcmp(s, "/") == 0)
+                pushDynArr(stack,lhs/rhs);
+            else if(strcmp(s, "x") == 0)
+                pushDynArr(stack,lhs * rhs);
+            else if(strcmp(s, "^") == 0)
+                pushDynArr(stack,pow(lhs,rhs));
+        }
+        else if (isOneOperands(s)) {
+
+            if(sizeDynArr(stack)<1){
+                printf("the stack has too few operands for the operation:%s",s);
+                return 0;
+            }
+
+            rhs = topDynArr(stack);
+            popDynArr(stack);
+
+            if(strcmp(s, "^2") == 0)
+                /* FIXME: replace printf with your own function */
+                printf("Squaring\n");
+            else if(strcmp(s, "^3") == 0)
+                /* FIXME: replace printf with your own function */
+                printf("Cubing\n");
+            else if(strcmp(s, "abs") == 0)
+                /* FIXME: replace printf with your own function */
+                printf("Absolute value\n");
+            else if(strcmp(s, "sqrt") == 0)
+                /* FIXME: replace printf with your own function */
+                printf("Square root\n");
+            else if(strcmp(s, "exp") == 0)
+                /* FIXME: replace printf with your own function */
+                printf("Exponential\n");
+            else if(strcmp(s, "ln") == 0)
+                /* FIXME: replace printf with your own function */
+                printf("Natural Log\n");
+            else if(strcmp(s, "log") == 0)
+                /* FIXME: replace printf with your own function */
+                printf("Log\n");
+        }
 		else 
 		{
-			// FIXME: You need to develop the code here (when s is not an operator)
-			// Remember to deal with special values ("pi" and "e")
-			
-		}
-	}	//end for 
+            double number;
 
-	/* FIXME: You will write this part of the function (2 steps below) 
-	 * (1) Check if everything looks OK and produce an error if needed.
-	 * (2) Store the final value in result and print it out.
-	 */
-	
-	return result;
+            if(strcmp(s,"e")==0){
+                pushDynArr(stack,E);
+            }
+            else if(strcmp(s,"pi")==0){
+                pushDynArr(stack,PI);
+            }
+            else if(isNumber(s,&number)){
+                pushDynArr(stack,number);
+            }
+            else{
+                printf("%s is neither a number nor an operand exiting now",s);
+                return 0;
+            }
+            printf("stacktop:%f \n",topDynArr(stack)); //todo remove
+
+        }
+    }   //end for
+
+    if(sizeDynArr(stack)!=1){
+        printf("there was an imbalance number of operators and operands\n");
+        return 0;
+    }else{
+        result = topDynArr(stack);
+        printf("\n%f\n",result);
+    }
+
+    return result;
 }
 
 int main(int argc , char** argv)

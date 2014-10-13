@@ -308,7 +308,6 @@ void popDynArr(DynArr *v)
     assert(v->size>0);
 
 	v->size--;
-	//todo  do we need to shrink?
 }
 
 /* ************************************************************************
