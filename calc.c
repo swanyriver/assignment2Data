@@ -106,26 +106,19 @@ double calculate(int numInputTokens, char **inputString)
             popDynArr(stack);
 
             if(strcmp(s, "^2") == 0)
-                /* FIXME: replace printf with your own function */
-                printf("Squaring\n");
+                pushDynArr(stack,pow(rhs,2));
             else if(strcmp(s, "^3") == 0)
-                /* FIXME: replace printf with your own function */
-                printf("Cubing\n");
+                pushDynArr(stack,pow(rhs,3));
             else if(strcmp(s, "abs") == 0)
-                /* FIXME: replace printf with your own function */
-                printf("Absolute value\n");
+                pushDynArr(stack,fabs(rhs));
             else if(strcmp(s, "sqrt") == 0)
-                /* FIXME: replace printf with your own function */
-                printf("Square root\n");
+                pushDynArr(stack,sqrt(rhs));
             else if(strcmp(s, "exp") == 0)
-                /* FIXME: replace printf with your own function */
-                printf("Exponential\n");
+                pushDynArr(stack,exp(rhs));
             else if(strcmp(s, "ln") == 0)
-                /* FIXME: replace printf with your own function */
-                printf("Natural Log\n");
+                pushDynArr(stack,log(rhs));
             else if(strcmp(s, "log") == 0)
-                /* FIXME: replace printf with your own function */
-                printf("Log\n");
+                pushDynArr(stack,log10(rhs));
         }
 		else 
 		{
@@ -144,13 +137,13 @@ double calculate(int numInputTokens, char **inputString)
                 printf("%s is neither a number nor an operand exiting now",s);
                 return 0;
             }
-            printf("stacktop:%f \n",topDynArr(stack)); //todo remove
+            //printf("stacktop:%f \n",topDynArr(stack)); //for debuging
 
         }
     }   //end for
 
     if(sizeDynArr(stack)!=1){
-        printf("there was an imbalance number of operators and operands\n");
+        printf("there was more operands than operators\n");
         return 0;
     }else{
         result = topDynArr(stack);
