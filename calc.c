@@ -166,7 +166,7 @@ double calculate ( int numInputTokens , char **inputString ) {
     }	//end for
 
     if ( sizeDynArr( stack ) != 1 ) {
-        printf( "there was an imbalance number of operators and operands\n" );
+        printf( "there were more operands than operators\n" );
         exit(1);
     } else {
         result = topDynArr( stack );
