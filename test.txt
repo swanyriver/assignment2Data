@@ -1,5 +1,6 @@
 
 
+
 Testing addDynArr...
 The array's content: [3,4,10,5,6]
 Test 1st element == 3: PASSED
